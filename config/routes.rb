@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
   get '/pets' => 'pets#index', as: :pets
-  get '/pets/:id' => 'pets#show'
+  get '/pets/:id' => 'pets#show', as: :pet
+  post '/pets' => 'pets#create'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
