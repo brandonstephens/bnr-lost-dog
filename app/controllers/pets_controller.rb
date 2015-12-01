@@ -10,11 +10,11 @@ class PetsController < ApplicationController
   end
 
   def index
-    @pets = Pet.all
+    @pets = Pet.all.decorate
   end
 
   def show
-    @pet = Pet.find(params[:id])
+    @pet = Pet.find(params[:id]).decorate
   end
 
   def new
