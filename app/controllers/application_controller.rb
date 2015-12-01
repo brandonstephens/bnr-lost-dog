@@ -15,4 +15,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def nope
+    render text: 'You cannot delete stuff.'
+  end
+
 end

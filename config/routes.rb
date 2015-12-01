@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   delete '/pets/:id' => 'pets#destroy'
 
   get '/mobile' => 'application#mobile'
+  get '/nope' => 'application#nope'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

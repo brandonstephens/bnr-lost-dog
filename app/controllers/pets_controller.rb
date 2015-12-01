@@ -1,6 +1,13 @@
 class PetsController < ApplicationController
 
   skip_before_action :ensure_user_not_mobile, only: :index
+  before_action :prevent_remote_delete, only: :destroy
+
+  def prevent_remote_delete
+    unless request.remote_ip =~ /127\.0\.0\.1/ 
+      redirect_to controller: 'application', action: 'nope'
+    end
+  end
 
   def index
     pets = Pet.pluck(:name).join(", ")
