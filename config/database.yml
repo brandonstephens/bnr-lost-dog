@@ -80,6 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: lost_dog_production
-  username: lost_dog
-  password: <%= ENV['LOST_DOG_DATABASE_PASSWORD'] %>
+  database: lost_dog_production %>
