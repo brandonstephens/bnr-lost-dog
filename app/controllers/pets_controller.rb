@@ -1,7 +1,7 @@
 class PetsController < ApplicationController
 
   skip_before_action :ensure_user_not_mobile, only: :index
-  before_action :prevent_remote_delete, only: :destroy
+  #before_action :prevent_remote_delete, only: :destroy
 
   def prevent_remote_delete
     unless request.remote_ip =~ /127\.0\.0\.1/ 
@@ -10,45 +10,51 @@ class PetsController < ApplicationController
   end
 
   def index
-    pets = Pet.pluck(:name).join(", ")
-    render text: pets
+    @pets = Pet.all
   end
 
   def show
-    pet = Pet.find(params[:id])
-    message = "My #{pet.breed} named #{pet.name} is #{pet.color}"
-    render text: message
+    @pet = Pet.find(params[:id])
+  end
+
+  def new
+    @pet = Pet.new
   end
 
   def create
-    pet = Pet.new(pet_params)
+    @pet = Pet.new(pet_params)
 
-    if pet.save
-      redirect_to pet_path(pet)
+    if @pet.save
+      flash[:notice] = "Pet created successfully!"
+      redirect_to pet_path(@pet)
     else
-      render text: pet.errors.full_messages, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
   end
 
-  def update
-    pet = Pet.find(params[:id])
+  def edit
+    @pet = Pet.find(params[:id])
+  end
 
-    if pet.update(pet_params)
-      redirect_to pet_path(pet)
+  def update
+    @pet = Pet.find(params[:id])
+
+    if @pet.update(pet_params)
+      redirect_to pet_path(@pet)
     else
-      render text: pet.errors.full_messages, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     pet = Pet.find(params[:id])
     pet.destroy
-    redirect_to pet_path
+    redirect_to pets_path
   end
 
   private 
 
   def pet_params
-    params.permit(:name, :breed, :color)
+    params.require(:pet).permit(:name, :breed, :color, :last_seen_at)
   end
 end
