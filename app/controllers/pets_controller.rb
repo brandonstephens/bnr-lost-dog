@@ -40,6 +40,7 @@ class PetsController < ApplicationController
     @pet = Pet.find(params[:id])
 
     if @pet.update(pet_params)
+      flash[:notice] = "Pet updated successfully!"
       redirect_to pet_path(@pet)
     else
       render :edit, status: :unprocessable_entity
