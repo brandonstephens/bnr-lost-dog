@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   get '/mobile' => 'application#mobile'
   get '/nope' => 'application#nope'
 
+  get '/sessions/new' => 'sessions#new', as: :new_sessions
+  post '/sessions' => 'sessions#create', as: :session
+  delete '/sessions' => 'sessions#destroy'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
