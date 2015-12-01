@@ -9,15 +9,15 @@
   
   <%= pretty_text_field(f, :name) %>
   <%= pretty_text_field(f, :breed) %>
-  
-  <div>
+
+  <div class="form-group">
     <%= f.label :color %>
-    <%= f.select :color, ['black', 'white', 'spotted', 'brindle'] %>
+    <%= f.select :color, ['black', 'white', 'spotted', 'brindle'], {}, {:class => 'form-control'} %>
   </div>
-  <div>
+  <div class="form-group">
     <%= f.label :last_seen_at %>
     <%= f.datetime_select :last_seen_at %>
   </div>
   
-  <%= f.submit %>
+  <%= f.submit :class => 'btn btn-primary' %>
 <% end %>
